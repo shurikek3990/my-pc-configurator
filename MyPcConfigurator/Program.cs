@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using MyPcConfigurator.Abstractions;
 using MyPcConfigurator.Entities;
+using MyPcConfigurator.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +9,7 @@ builder.Services.AddDbContext<ConfiguratorDbContext>(config =>
 {
     config.UseSqlServer(builder.Configuration.GetConnectionString("ConfiguratorDb"));
 });
+builder.Services.AddRepositories();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
