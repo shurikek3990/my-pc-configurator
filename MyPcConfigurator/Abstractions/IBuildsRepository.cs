@@ -6,7 +6,7 @@ namespace MyPcConfigurator.Abstractions
     {
         public Build AddBuild(Build build);
         public void DeleteBuild(Build build);
-        public List<Build> GetBuildsList(int pageNum = 1);
+        public List<Build> GetBuildsList();
         public Build GetBuild(int buildId);
     }
 }

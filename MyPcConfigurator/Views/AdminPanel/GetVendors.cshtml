@@ -1,0 +1,28 @@
+﻿@model List<Vendor>;
+
+@{
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Legal Name</th>
+            <th scope="col">Country Code</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in Model){
+            <tr>
+                <th scope="row">@v.Id</th>
+                <td>@v.Name</td>
+                <td>@v.LegalName</td>
+                <td>@v.CountryCode</td>
+                <td>@Html.ActionLink("Edit", "AddOrUpdate", "AdminPanel", new { @id = v.Id })</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Html.ActionLink("Add new vendor", "AddOrUpdate", "AdminPanel");

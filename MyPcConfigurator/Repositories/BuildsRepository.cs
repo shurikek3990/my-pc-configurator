@@ -1,4 +1,5 @@
-﻿using MyPcConfigurator.Abstractions;
+﻿using Microsoft.EntityFrameworkCore;
+using MyPcConfigurator.Abstractions;
 using MyPcConfigurator.Entities;
 using MyPcConfigurator.Models;
 
@@ -28,16 +29,20 @@ namespace MyPcConfigurator.Repositories
 
         public Build GetBuild(int buildId)
         {
-            var build = _dbContext.Builds.First(b => b.Id == buildId);
+            var build = _dbContext.Builds
+                .Include(b => b.Motherboard)
+                .Include(b => b.Processor)
+                .Include(b => b.GraphicsCard)
+                .Include(b => b.PowerSupply)
+                .Include(b => b.Disk)
+                .Include(b => b.MemoryUnits)
+                .First(b => b.Id == buildId);
             return build;
         }
 
-        public List<Build> GetBuildsList(int pageNum = 1)
+        public List<Build> GetBuildsList()
         {
-            const int pageSize = 10;
             var builds = _dbContext.Builds
-                .Skip(pageSize * (pageNum - 1))
-                .Take(pageSize)
                 .ToList();
 
             return builds;

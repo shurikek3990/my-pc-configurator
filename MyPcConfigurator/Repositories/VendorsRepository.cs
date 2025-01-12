@@ -31,12 +31,9 @@ namespace MyPcConfigurator.Repositories
             return vendor;
         }
 
-        public List<Vendor> GetVendorsList(int pageNum = 1)
+        public List<Vendor> GetVendorsList()
         {
-            const int pageSize = 10;
             var vendorlist = _dbContext.Vendors
-                .Skip(pageSize * (pageNum-1))
-                .Take(pageSize)
                 .ToList();
             return vendorlist;
         }

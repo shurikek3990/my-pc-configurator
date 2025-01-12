@@ -1,0 +1,15 @@
+﻿@model Build;
+@{
+}
+
+<p>Created At: @Model.CreatedAt</p>
+<p>Email: @Model.Email</p>
+<p>Motherboard: @Model.Motherboard.ModelName</p>
+<p>Processor: @Model.Processor.ModelName</p>
+<p>Graphics Card: @(Model.GraphicsCard?.ModelName ?? "none")</p>
+<p>Power Supply: @Model.PowerSupply.ModelName</p>
+<p>Disk: @Model.Disk.ModelName</p>
+<p>Memory: </p>
+@foreach (var m in Model.MemoryUnits){
+	<p>@Model.MemoryUnits.IndexOf(m) - @m.ModelName</p>
+}

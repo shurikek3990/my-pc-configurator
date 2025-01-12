@@ -4,7 +4,7 @@ namespace MyPcConfigurator.Abstractions
 {
     public interface IVendorsRepository
     {
-        public List<Vendor> GetVendorsList(int pageNum = 1);
+        public List<Vendor> GetVendorsList();
         public Vendor GetVendor(int id);
         public Vendor AddVendor(Vendor vendor);
         public Vendor UpdateVendor(Vendor vendor);

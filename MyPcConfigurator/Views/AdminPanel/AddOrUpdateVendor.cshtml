@@ -1,0 +1,19 @@
+﻿@model Vendor;
+@{
+}
+<p>Add or Update Vendor</p>
+<form asp-controller="AdminPanel" asp-action="DoAddOrUpdate" method="post">
+    <div class="mb-3">
+        <label for="InputName" class="form-label">Name</label>
+        <input type="text" class="form-control" id="InputName" asp-for="Name">
+    </div>
+    <div class="mb-3">
+        <label for="InputLegalName" class="form-label">Legal Name</label>
+        <input type="text" class="form-control" id="InputLegalName" asp-for="LegalName">
+    </div>
+    <div class="mb-3 form-check">
+        <label for="InputCountryCode" class="form-label">Country Code</label>
+        <input type="text" class="form-control" id="InputCountryCode" asp-for="CountryCode">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
