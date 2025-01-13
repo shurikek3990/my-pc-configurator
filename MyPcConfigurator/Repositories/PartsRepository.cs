@@ -50,5 +50,23 @@ namespace MyPcConfigurator.Repositories
 
             return motherboard;
         }
+
+        public List<Processor> GetProcessors()
+        {
+            var processors = _dbContext.Processors
+                .Include(m => m.Vendor)
+                .ToList();
+
+            return processors;
+        }
+
+        public Processor GetProcessorById(int id)
+        {
+            var processor = _dbContext.Processors
+                .Include(m => m.Vendor)
+                .First(m => m.Id == id);
+
+            return processor;
+        }
     }
 }

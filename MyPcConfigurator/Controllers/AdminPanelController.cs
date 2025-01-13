@@ -113,5 +113,52 @@ namespace MyPcConfigurator.Controllers
 
             return RedirectToAction("GetMotherboards");
         }
+
+        public IActionResult GetProcessors()
+        {
+            var processors = _partsRepository.GetProcessors();
+            return View(processors);
+        }
+
+        [HttpGet]
+        public IActionResult AddOrUpdateProcessor(int? processorId = null)
+        {
+            AddOrUpdateProcessorViewModel viewModel;
+            var selectList = _vendorsRepository.GetVendorsAsSelectListItems();
+            if (processorId == null)
+            {
+                viewModel = new AddOrUpdateProcessorViewModel
+                {
+                    Processor = new Processor(),
+                    VendorsToSelectList = selectList
+                };
+                return View(viewModel);
+            }
+
+            var processor = _partsRepository.GetProcessorById(processorId.Value);
+            viewModel = new AddOrUpdateProcessorViewModel
+            {
+                Processor = processor,
+                VendorsToSelectList = selectList,
+                SelectedVendor = selectList.FirstOrDefault(i => i.Value == processor.Vendor.Id.ToString())!.Value
+            };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult AddOrUpdateProcessor(AddOrUpdateProcessorViewModel model)
+        {
+            var vendors = _vendorsRepository.GetVendorsList();
+            model.Processor.Vendor = vendors.First(v => v.Id.ToString() == model.SelectedVendor);
+            var selectList = _vendorsRepository.GetVendorsAsSelectListItems();
+            model.VendorsToSelectList = selectList;
+
+            if (model.Processor.Id > 0)
+                _partsRepository.UpdatePart(model.Processor);
+            else
+                _partsRepository.AddPart(model.Processor);
+
+            return RedirectToAction("GetProcessors");
+        }
     }
 }

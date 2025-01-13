@@ -1,0 +1,36 @@
+﻿@model List<Processor>;
+@{
+    Layout = "_AdminPanelLayout";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Vendor</th>
+            <th scope="col">Model</th>
+            <th scope="col">Socket type</th>
+            <th scope="col">Cores</th>
+            <th scope="col">Price</th>
+            <th scope="col">Has integrated GPU?</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model)
+        {
+            <tr>
+                <th scope="row">@p.Id</th>
+                <td>@p.Vendor.Name</td>
+                <td>@p.ModelName</td>
+                <td>@p.Socket</td>
+                <td>@p.Cores</td>
+                <td>@p.Price</td>
+                <td>@p.IntegratedGraphics</td>
+                <td>@Html.ActionLink("Edit", "AddOrUpdateProcessor", "AdminPanel", new { @processorId = p.Id })</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Html.ActionLink("Add new processor", "AddOrUpdateProcessor", "AdminPanel")

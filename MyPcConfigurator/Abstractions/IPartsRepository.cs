@@ -10,5 +10,7 @@ namespace MyPcConfigurator.Abstractions
 
         public List<Motherboard> GetMotherboards();
         public Motherboard GetMotherboardById(int id);
+        public List<Processor> GetProcessors();
+        public Processor GetProcessorById(int id);
     }
 }
