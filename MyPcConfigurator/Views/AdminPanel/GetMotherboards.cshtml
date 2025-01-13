@@ -1,0 +1,40 @@
+﻿@model List<Motherboard>
+@{
+    Layout = "_AdminPanelLayout";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Vendor</th>
+            <th scope="col">Model</th>
+            <th scope="col">Socket type</th>
+            <th scope="col">Ram slots</th>
+            <th scope="col">Ram type</th>
+            <th scope="col">Format</th>
+            <th scope="col">Power</th>
+            <th scope="col">Price</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var m in Model)
+        {
+            <tr>
+                <th scope="row">@m.Id</th>
+                <td>@m.Vendor.Name</td>
+                <td>@m.ModelName</td>
+                <td>@m.Socket</td>
+                <td>@m.RamSlots</td>
+                <td>@m.RamType</td>
+                <td>@m.Format</td>
+                <td>@m.PowerConsumption</td>
+                <td>@m.Price</td>
+                <td>@Html.ActionLink("Edit", "AddOrUpdateMotherboard", "AdminPanel", new { @motherboardId = m.Id })</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Html.ActionLink("Add new motherboard", "AddOrUpdateMotherboard", "AdminPanel")

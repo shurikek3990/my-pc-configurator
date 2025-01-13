@@ -1,4 +1,5 @@
-﻿using MyPcConfigurator.Abstractions;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using MyPcConfigurator.Abstractions;
 using MyPcConfigurator.Entities;
 using MyPcConfigurator.Models;
 
@@ -43,6 +44,15 @@ namespace MyPcConfigurator.Repositories
             _dbContext.Vendors.Update(vendor);
             _dbContext.SaveChanges();
             return vendor;
+        }
+
+        public List<SelectListItem> GetVendorsAsSelectListItems()
+        {
+            var list = _dbContext.Vendors
+                .Select(v => new SelectListItem(v.Name, v.Id.ToString()))
+                .ToList();
+
+            return list;
         }
     }
 }

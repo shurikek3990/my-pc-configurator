@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Numerics;
+using Microsoft.AspNetCore.Mvc;
 using MyPcConfigurator.Abstractions;
 using MyPcConfigurator.Models;
 using MyPcConfigurator.Repositories;
+using MyPcConfigurator.ViewModel;
 
 namespace MyPcConfigurator.Controllers
 {
@@ -9,11 +11,14 @@ namespace MyPcConfigurator.Controllers
     {
         private readonly IVendorsRepository _vendorsRepository;
         private readonly IBuildsRepository _buildsRepository;
+        private readonly IPartsRepository _partsRepository;
         public AdminPanelController(IVendorsRepository vendorsRepository, 
-            IBuildsRepository buildsRepository)
+            IBuildsRepository buildsRepository,
+            IPartsRepository partsRepository)
         {
             _vendorsRepository = vendorsRepository;
             _buildsRepository = buildsRepository;
+            _partsRepository = partsRepository;
         }
         public IActionResult Index()
         {
@@ -24,6 +29,8 @@ namespace MyPcConfigurator.Controllers
             var vendorslist = _vendorsRepository.GetVendorsList();
             return View(vendorslist);
         }
+
+        [HttpGet]
         public IActionResult AddOrUpdateVendor(int? vendorId = null)
         {
             if (vendorId == null) 
@@ -34,6 +41,8 @@ namespace MyPcConfigurator.Controllers
             var vendor = _vendorsRepository.GetVendor(vendorId!.Value);
             return View(vendor);
         }
+
+        [HttpPost]
         public IActionResult AddOrUpdateVendor(Vendor vendor)
         {
             ModelState.ClearValidationState(nameof(Vendor));
@@ -57,6 +66,52 @@ namespace MyPcConfigurator.Controllers
         {
             var build = _buildsRepository.GetBuild(buildId);
             return View(build);
+        }
+
+        public IActionResult GetMotherboards()
+        {
+            var motherboards = _partsRepository.GetMotherboards();
+            return View(motherboards);
+        }
+
+        [HttpGet]
+        public IActionResult AddOrUpdateMotherboard(int? motherboardId = null)
+        {
+            AddOrUpdateMotherboardViewModel viewModel;
+            var selectList = _vendorsRepository.GetVendorsAsSelectListItems();
+            if (motherboardId == null)
+            {
+                viewModel = new AddOrUpdateMotherboardViewModel { 
+                    Motherboard = new Motherboard(), 
+                    VendorsToSelectList = selectList
+                };
+                return View(viewModel);
+            }
+
+            var motherboard = _partsRepository.GetMotherboardById(motherboardId.Value);
+            viewModel = new AddOrUpdateMotherboardViewModel
+            {
+                Motherboard = motherboard,
+                VendorsToSelectList = selectList,
+                SelectedVendor = selectList.FirstOrDefault(i => i.Value == motherboard.Vendor.Id.ToString())!.Value
+            };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult AddOrUpdateMotherboard(AddOrUpdateMotherboardViewModel model)
+        {
+            var vendors = _vendorsRepository.GetVendorsList();
+            model.Motherboard.Vendor = vendors.First(v => v.Id.ToString() == model.SelectedVendor);
+            var selectList = _vendorsRepository.GetVendorsAsSelectListItems();
+            model.VendorsToSelectList = selectList;
+
+            if (model.Motherboard.Id > 0)
+                _partsRepository.UpdatePart(model.Motherboard);
+            else
+                _partsRepository.AddPart(model.Motherboard);
+
+            return RedirectToAction("GetMotherboards");
         }
     }
 }

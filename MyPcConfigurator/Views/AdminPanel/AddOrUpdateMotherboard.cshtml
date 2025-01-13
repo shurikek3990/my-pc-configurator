@@ -1,0 +1,43 @@
+﻿@using MyPcConfigurator.ViewModel
+@model AddOrUpdateMotherboardViewModel;
+@{
+    Layout = "_AdminPanelLayout";
+}
+
+<p>Add or Update Motherboard</p>
+<form asp-controller="AdminPanel" asp-action="AddOrUpdateMotherboard" method="post">
+    <input type="hidden" asp-for="Motherboard.Id" />
+    <div class="mb-3">
+        <label for="InputModelName" class="form-label">Model Name</label>
+        <input type="text" class="form-control" id="InputModelName" asp-for="Motherboard.ModelName">
+    </div>
+    <div class="mb-3">
+        <label for="InputVendor" class="form-label">Vendor</label>
+        <select asp-for="SelectedVendor" asp-items="Model.VendorsToSelectList" id="InputVendor"></select>
+    </div>
+    <div class="mb-3 form-check">
+        <label for="InputPowerConsumption" class="form-label">Power consumption</label>
+        <input type="number" class="form-control" id="InputPowerConsumption" asp-for="Motherboard.PowerConsumption">
+    </div>
+    <div class="mb-3 form-check">
+        <label for="InputPrice" class="form-label">Price</label>
+        <input type="number" class="form-control" id="InputPrice" asp-for="Motherboard.Price">
+    </div>
+    <div class="mb-3">
+        <label for="InputFormat" class="form-label">Format</label>
+        <input type="text" class="form-control" id="InputFormat" asp-for="Motherboard.Format">
+    </div>
+    <div class="mb-3">
+        <label for="InputSocket" class="form-label">Socket</label>
+        <input type="text" class="form-control" id="InputSocket" asp-for="Motherboard.Socket">
+    </div>
+    <div class="mb-3">
+        <label for="InputRamType" class="form-label">Ram Type</label>
+        <input type="text" class="form-control" id="InputRamType" asp-for="Motherboard.RamType">
+    </div>
+    <div class="mb-3 form-check">
+        <label for="InputRamSlots" class="form-label">Ram Slots</label>
+        <input type="number" class="form-control" id="InputRamSlots" asp-for="Motherboard.RamSlots">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

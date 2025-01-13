@@ -1,4 +1,5 @@
-﻿using MyPcConfigurator.Abstractions;
+﻿using Microsoft.EntityFrameworkCore;
+using MyPcConfigurator.Abstractions;
 using MyPcConfigurator.Entities;
 using MyPcConfigurator.Models;
 
@@ -30,6 +31,24 @@ namespace MyPcConfigurator.Repositories
             _dbContext.Update(part);
             _dbContext.SaveChanges();
             return part;
+        }
+
+        public List<Motherboard> GetMotherboards()
+        {
+            var list = _dbContext.Motherboards
+                .Include(m => m.Vendor)
+                .ToList();
+
+            return list;
+        }
+
+        public Motherboard GetMotherboardById(int id)
+        {
+            var motherboard = _dbContext.Motherboards
+                .Include(m => m.Vendor)
+                .First(m => m.Id == id);
+
+            return motherboard;
         }
     }
 }
