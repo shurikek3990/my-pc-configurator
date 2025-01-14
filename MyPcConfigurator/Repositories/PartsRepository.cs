@@ -68,5 +68,37 @@ namespace MyPcConfigurator.Repositories
 
             return processor;
         }
+
+        public List<Disk> GetDisks()
+        {
+            var disks = _dbContext.Disks
+                .Include(m => m.Vendor)
+                .ToList();
+            return disks;
+        }
+
+        public List<PowerSupply> GetPowerSupplies()
+        {
+            var powerSupplies = _dbContext.PowerSupplys
+                .Include(m => m.Vendor)
+                .ToList();
+            return powerSupplies;
+        }
+
+        public List<Memory> GetMemories()
+        {
+            var memoryUnits = _dbContext.Memories
+                .Include(m => m.Vendor)
+                .ToList();
+            return memoryUnits;
+        }
+
+        public List<GraphicsCard> GetGraphicsCards()
+        {
+            var graphicsCards = _dbContext.GraphicsCards
+                .Include(m => m.Vendor)
+                .ToList();
+            return graphicsCards;
+        }
     }
 }

@@ -1,0 +1,40 @@
+﻿@model Build;
+@{
+}
+
+@using (Html.BeginForm(controllerName: "Build", actionName: "AddBuild", method: FormMethod.Post))
+{
+	<div class="md-3">
+		@Html.Label("Motherboard", "Motherboard", htmlAttributes: new { @class = "form-label" })
+		@Html.TextBoxFor(m => m.Motherboard.ModelName, new { @class = "form-select", @disabled = "disabled" })
+	</div>
+	<div class="md-3">
+		@Html.Label("Processor", "Processor", htmlAttributes: new { @class = "form-label" })
+		@Html.TextBoxFor(m => m.Processor.ModelName, new { @class = "form-select", @disabled = "disabled" })
+	</div>
+	<div class="md-3">
+		@Html.Label("Disk", "Disk", htmlAttributes: new { @class = "form-label" })
+		@Html.TextBoxFor(m => m.Disk.ModelName, new { @class = "form-select", @disabled = "disabled" })
+	</div>
+	<div class="md-3">
+		@Html.Label("PowerSupply", "Power supply", htmlAttributes: new { @class = "form-label" })
+		@Html.TextBoxFor(m => m.PowerSupply.ModelName, new { @class = "form-select", @disabled = "disabled" })
+	</div>
+	<div class="md-3">
+		@Html.Label("GraphicsCard", "Graphics card", htmlAttributes: new { @class = "form-label" })
+		@Html.TextBoxFor(m => m.GraphicsCard.ModelName, new { @class = "form-select", @disabled = "disabled" })
+	</div>
+	<div class="md-3">
+		@Html.Label("MemoryUnits", "Memory units", htmlAttributes: new { @class = "form-label" })
+		@for (int i = 0; i < Model.MemoryUnits.Count; i++)
+		{
+			@Html.TextBoxFor(m => m.MemoryUnits[i].ModelName, new { @class = "form-select", @disabled = "disabled" })
+		}
+	</div>
+	<div class="md-3">
+		@Html.Label("Email", "Your email", htmlAttributes: new { @class = "form-label" })
+		@Html.TextBoxFor(m => m.Email, new { @class = "form-select" })
+	</div>
+
+	<button type="submit" class="btn btn-primary">Submit</button>
+}

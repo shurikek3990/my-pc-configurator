@@ -12,5 +12,9 @@ namespace MyPcConfigurator.Abstractions
         public Motherboard GetMotherboardById(int id);
         public List<Processor> GetProcessors();
         public Processor GetProcessorById(int id);
+        public List<Disk> GetDisks();
+        public List<PowerSupply> GetPowerSupplies();
+        public List<Memory> GetMemories();
+        public List<GraphicsCard> GetGraphicsCards();
     }
 }

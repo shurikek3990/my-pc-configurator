@@ -1,5 +1,38 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using MyPcConfigurator.ViewModel;
+@model CreateBuildViewModel;
 @{
+}
+
+
+@using (Html.BeginForm(controllerName: "Build", actionName: "Create", method: FormMethod.Post))
+{
+	<div class="md-3">
+		@Html.LabelFor(m => m.SelectedMotherboard, htmlAttributes: new { @class = "form-label" })
+		@Html.DropDownListFor(m => m.SelectedMotherboard, Model.MotherboardListItems, new { @class = "form-select" })
+	</div>
+	<div class="md-3">
+		@Html.LabelFor(m => m.SelectedProcessor, htmlAttributes: new { @class = "form-label" })
+		@Html.DropDownListFor(m => m.SelectedProcessor, Model.ProcessorListItems, new { @class = "form-select" })
+	</div>
+	<div class="md-3">
+		@Html.LabelFor(m => m.SelectedDisk, htmlAttributes: new { @class = "form-label" })
+		@Html.DropDownListFor(m => m.SelectedDisk, Model.DiskListItems, new { @class = "form-select" })
+	</div>
+	<div class="md-3">
+		@Html.LabelFor(m => m.SelectedPowerSupply, htmlAttributes: new { @class = "form-label" })
+		@Html.DropDownListFor(m => m.SelectedPowerSupply, Model.PowerSuppliesListItems, new { @class = "form-select" })
+	</div>
+	<div class="md-3">
+		@Html.LabelFor(m => m.SelectedGraphicsCard, htmlAttributes: new { @class = "form-label" })
+		@Html.DropDownListFor(m => m.SelectedGraphicsCard, Model.GraphicsCardsListItems, new { @class = "form-select" })
+	</div>
+	<div class="md-3">
+		@Html.LabelFor(m => m.SelectedMemoryUnits, htmlAttributes: new { @class = "form-label" })
+		@for(int i = 0; i < 8; i++)
+		{
+			@Html.DropDownListFor(m => m.SelectedMemoryUnits[i], Model.MemoryUnitsListItems, new { @class = "form-select" })
+		}
+	</div>
+	@Html.ValidationSummary();
+	<button type="submit" class="btn btn-primary">Submit</button>
 }
