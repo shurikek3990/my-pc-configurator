@@ -16,7 +16,7 @@ namespace MyPcConfigurator.Repositories
 
         public Build AddBuild(Build build)
         {
-            _dbContext.Builds.Add(build);
+            _dbContext.Builds.Update(build);
             _dbContext.SaveChanges();
             return build;
         }
