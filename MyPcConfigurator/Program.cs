@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ConfiguratorDbContext>(config =>
 {
     config.UseSqlServer(builder.Configuration.GetConnectionString("ConfiguratorDb"));
+    config.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTrackingWithIdentityResolution);
 });
 builder.Services.AddRepositories();
 // Add services to the container.

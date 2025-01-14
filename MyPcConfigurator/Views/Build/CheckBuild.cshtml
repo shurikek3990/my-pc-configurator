@@ -1,5 +1,7 @@
-﻿@model Build;
+﻿@using System.Text.Json
+@model Build;
 @{
+	TempData["build"] = JsonSerializer.Serialize(Model);
 }
 
 @using (Html.BeginForm(controllerName: "Build", actionName: "AddBuild", method: FormMethod.Post))
