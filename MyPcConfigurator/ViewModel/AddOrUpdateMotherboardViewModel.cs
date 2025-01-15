@@ -4,14 +4,8 @@ using MyPcConfigurator.Models;
 
 namespace MyPcConfigurator.ViewModel
 {
-    public class AddOrUpdateMotherboardViewModel
+    public class AddOrUpdateMotherboardViewModel : AddOrUpdateViewModelBase
     {
         public Motherboard Motherboard { get; set; }
-
-        
-        public List<SelectListItem> VendorsToSelectList { get; set; }
-
-        [Required]
-        public string SelectedVendor { get; set; }
     }
 }

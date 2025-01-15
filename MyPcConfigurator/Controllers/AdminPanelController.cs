@@ -160,5 +160,197 @@ namespace MyPcConfigurator.Controllers
 
             return RedirectToAction("GetProcessors");
         }
+
+        public IActionResult GetDisks()
+        {
+            var disks = _partsRepository.GetDisks();
+            return View(disks);
+        }
+
+        [HttpGet]
+        public IActionResult AddOrUpdateDisk(int? diskId = null)
+        {
+            AddOrUpdateDiskViewModel viewModel;
+            var selectList = _vendorsRepository.GetVendorsAsSelectListItems();
+            if (diskId == null)
+            {
+                viewModel = new AddOrUpdateDiskViewModel
+                {
+                    Disk = new Disk(),
+                    VendorsToSelectList = selectList
+                };
+                return View(viewModel);
+            }
+
+            var disk = _partsRepository.GetDiskById(diskId.Value);
+            viewModel = new AddOrUpdateDiskViewModel
+            {
+                Disk = disk,
+                VendorsToSelectList = selectList,
+                SelectedVendor = selectList.FirstOrDefault(v => v.Value == disk.Vendor.Id.ToString())!.Value
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult AddOrUpdateDisk(AddOrUpdateDiskViewModel model)
+        {
+            var vendors = _vendorsRepository.GetVendorsList();
+            model.Disk.Vendor = vendors.First(v => v.Id.ToString() == model.SelectedVendor);
+            var selectList = _vendorsRepository.GetVendorsAsSelectListItems();
+            model.VendorsToSelectList = selectList;
+
+            if (model.Disk.Id > 0)
+                _partsRepository.UpdatePart(model.Disk);
+            else
+                _partsRepository.AddPart(model.Disk);
+
+            return RedirectToAction("GetDisks");
+        }
+
+        public IActionResult GetMemory()
+        {
+            var memoryList = _partsRepository.GetMemories();
+            return View(memoryList);
+        }
+
+        [HttpGet]
+        public IActionResult AddOrUpdateMemory(int? memoryId = null)
+        {
+            AddOrUpdateMemoryViewModel viewModel;
+            var selectList = _vendorsRepository.GetVendorsAsSelectListItems();
+            if (memoryId == null)
+            {
+                viewModel = new AddOrUpdateMemoryViewModel
+                {
+                    Memory = new Memory(),
+                    VendorsToSelectList = selectList
+                };
+                return View(viewModel);
+            }
+
+            var memory = _partsRepository.GetMemoryById(memoryId.Value);
+            viewModel = new AddOrUpdateMemoryViewModel
+            {
+                Memory = memory,
+                VendorsToSelectList = selectList,
+                SelectedVendor = selectList.FirstOrDefault(v => v.Value == memory.Vendor.Id.ToString())!.Value
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult AddOrUpdateMemory(AddOrUpdateMemoryViewModel model)
+        {
+            var vendors = _vendorsRepository.GetVendorsList();
+            model.Memory.Vendor = vendors.First(v => v.Id.ToString() == model.SelectedVendor);
+            var selectList = _vendorsRepository.GetVendorsAsSelectListItems();
+            model.VendorsToSelectList = selectList;
+
+            if (model.Memory.Id > 0)
+                _partsRepository.UpdatePart(model.Memory);
+            else
+                _partsRepository.AddPart(model.Memory);
+
+            return RedirectToAction("GetMemory");
+        }
+
+        public IActionResult GetGraphicsCards()
+        {
+            var graphicsCards = _partsRepository.GetGraphicsCards();
+            return View(graphicsCards);
+        }
+
+        [HttpGet]
+        public IActionResult AddOrUpdateGraphicsCard(int? graphicsCardId = null)
+        {
+            AddOrUpdateGraphicsCardViewModel viewModel;
+            var selectList = _vendorsRepository.GetVendorsAsSelectListItems();
+            if (graphicsCardId == null)
+            {
+                viewModel = new AddOrUpdateGraphicsCardViewModel
+                {
+                    GraphicsCard = new GraphicsCard(),
+                    VendorsToSelectList = selectList
+                };
+                return View(viewModel);
+            }
+
+            var graphicsCard = _partsRepository.GetGraphicsCardById(graphicsCardId.Value);
+            viewModel = new AddOrUpdateGraphicsCardViewModel
+            {
+                GraphicsCard = graphicsCard,
+                VendorsToSelectList = selectList,
+                SelectedVendor = selectList.FirstOrDefault(v => v.Value == graphicsCard.Vendor.Id.ToString())!.Value
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult AddOrUpdateGraphicsCard(AddOrUpdateGraphicsCardViewModel model)
+        {
+            var vendors = _vendorsRepository.GetVendorsList();
+            model.GraphicsCard.Vendor = vendors.First(v => v.Id.ToString() == model.SelectedVendor);
+            var selectList = _vendorsRepository.GetVendorsAsSelectListItems();
+            model.VendorsToSelectList = selectList;
+
+            if (model.GraphicsCard.Id > 0)
+                _partsRepository.UpdatePart(model.GraphicsCard);
+            else
+                _partsRepository.AddPart(model.GraphicsCard);
+
+            return RedirectToAction("GetGraphicsCards");
+        }
+
+        public IActionResult GetPowerSupplies()
+        {
+            var supplies = _partsRepository.GetPowerSupplies();
+            return View(supplies);
+        }
+
+        [HttpGet]
+        public IActionResult AddOrUpdatePowerSupply(int? powerSupplyId = null)
+        {
+            AddOrUpdatePowerSupplyViewModel viewModel;
+            var selectList = _vendorsRepository.GetVendorsAsSelectListItems();
+            if (powerSupplyId == null)
+            {
+                viewModel = new AddOrUpdatePowerSupplyViewModel
+                {
+                    PowerSupply = new PowerSupply(),
+                    VendorsToSelectList = selectList
+                };
+                return View(viewModel);
+            }
+
+            var powerSupply = _partsRepository.GetPowerSupplyById(powerSupplyId.Value);
+            viewModel = new AddOrUpdatePowerSupplyViewModel
+            {
+                PowerSupply = powerSupply,
+                VendorsToSelectList = selectList,
+                SelectedVendor = selectList.FirstOrDefault(v => v.Value == powerSupply.Vendor.Id.ToString())!.Value
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult AddOrUpdatePowerSupply(AddOrUpdatePowerSupplyViewModel model)
+        {
+            var vendors = _vendorsRepository.GetVendorsList();
+            model.PowerSupply.Vendor = vendors.First(v => v.Id.ToString() == model.SelectedVendor);
+            var selectList = _vendorsRepository.GetVendorsAsSelectListItems();
+            model.VendorsToSelectList = selectList;
+
+            if (model.PowerSupply.Id > 0)
+                _partsRepository.UpdatePart(model.PowerSupply);
+            else
+                _partsRepository.AddPart(model.PowerSupply);
+
+            return RedirectToAction("GetPowerSupplies");
+        }
     }
 }

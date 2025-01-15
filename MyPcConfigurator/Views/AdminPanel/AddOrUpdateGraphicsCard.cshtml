@@ -1,0 +1,30 @@
+﻿@using MyPcConfigurator.ViewModel;
+@model AddOrUpdateGraphicsCardViewModel;
+@{
+}
+
+<p>Add or Update Graphics Card</p>
+<form asp-controller="AdminPanel" asp-action="AddOrUpdateGraphicsCard" method="post">
+    <input type="hidden" asp-for="GraphicsCard.Id" />
+    <div class="mb-3">
+        <label for="InputModelName" class="form-label">Model Name</label>
+        <input type="text" class="form-control" id="InputModelName" asp-for="GraphicsCard.ModelName">
+    </div>
+    <div class="mb-3">
+        <label for="InputVendor" class="form-label">Vendor</label>
+        <select asp-for="SelectedVendor" asp-items="Model.VendorsToSelectList" id="InputVendor"></select>
+    </div>
+    <div class="mb-3 form-check">
+        <label for="InputPowerConsumption" class="form-label">Power consumption</label>
+        <input type="number" class="form-control" id="InputPowerConsumption" asp-for="GraphicsCard.PowerConsumption">
+    </div>
+    <div class="mb-3 form-check">
+        <label for="InputPrice" class="form-label">Price</label>
+        <input type="number" class="form-control" id="InputPrice" asp-for="GraphicsCard.Price">
+    </div>
+    <div class="mb-3 form-check">
+        <label for="InputMemory" class="form-label">Memory</label>
+        <input type="number" class="form-control" id="InputMemory" asp-for="GraphicsCard.Memory">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

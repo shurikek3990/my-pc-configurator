@@ -1,0 +1,32 @@
+﻿@model List<Disk>;
+@{
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Vendor</th>
+            <th scope="col">Model</th>
+            <th scope="col">Capacity</th>
+            <th scope="col">Price</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var d in Model)
+        {
+            <tr>
+                <th scope="row">@d.Id</th>
+                <td>@d.Vendor.Name</td>
+                <td>@d.ModelName</td>
+                <td>@d.Capacity</td>
+                <td>@d.Price</td>
+                <td>@Html.ActionLink("Edit", "AddOrUpdateDisk", "AdminPanel", new { @diskId = d.Id })</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@Html.ActionLink("Add new disk", "AddOrUpdateDisk", "AdminPanel")

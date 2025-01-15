@@ -1,0 +1,31 @@
+﻿@model List<PowerSupply>;
+@{
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Vendor</th>
+            <th scope="col">Model</th>
+            <th scope="col">Output power</th>
+            <th scope="col">Price</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var psu in Model)
+        {
+            <tr>
+                <th scope="row">@psu.Id</th>
+                <td>@psu.Vendor.Name</td>
+                <td>@psu.ModelName</td>
+                <td>@psu.OutputPower</td>
+                <td>@psu.Price</td>
+                <td>@Html.ActionLink("Edit", "AddOrUpdatePowerSupply", "AdminPanel", new { @powerSupplyId = psu.Id })</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Html.ActionLink("Add new power supply", "AddOrUpdatePowerSupply", "AdminPanel")

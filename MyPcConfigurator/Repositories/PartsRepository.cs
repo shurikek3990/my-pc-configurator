@@ -15,7 +15,9 @@ namespace MyPcConfigurator.Repositories
 
         public Part AddPart(Part part)
         {
-            _dbContext.Add(part);
+            //If .Add() => SqlException - IDENTITY_INSERT IS OFF
+            //(probably EF tries to create Vendor with existing ID instead of just writing FK to Part)
+            _dbContext.Update(part);
             _dbContext.SaveChanges();
             return part;
         }
@@ -99,6 +101,38 @@ namespace MyPcConfigurator.Repositories
                 .Include(m => m.Vendor)
                 .ToList();
             return graphicsCards;
+        }
+
+        public Disk GetDiskById(int id)
+        {
+            var disk = _dbContext.Disks
+                .Include(d => d.Vendor)
+                .First (d => d.Id == id);
+            return disk;
+        }
+
+        public Memory GetMemoryById(int id)
+        {
+            var memory = _dbContext.Memories
+                .Include(m => m.Vendor)
+                .First(m => m.Id == id);
+            return memory;
+        }
+
+        public GraphicsCard GetGraphicsCardById(int id)
+        {
+            var graphicsCard = _dbContext.GraphicsCards
+                .Include(gpu => gpu.Vendor)
+                .First(gpu => gpu.Id == id);
+            return graphicsCard;
+        }
+
+        public PowerSupply GetPowerSupplyById(int id)
+        {
+            var powerSupply = _dbContext.PowerSupplys
+                .Include(psu => psu.Vendor)
+                .First(psu => psu.Id == id);
+            return powerSupply;
         }
     }
 }

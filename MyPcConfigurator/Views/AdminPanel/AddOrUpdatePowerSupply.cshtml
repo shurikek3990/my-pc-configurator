@@ -1,0 +1,27 @@
+﻿@using MyPcConfigurator.ViewModel;
+@model AddOrUpdatePowerSupplyViewModel;
+@{
+}
+
+<p>Add or Update Power Supply</p>
+<form asp-controller="AdminPanel" asp-action="AddOrUpdatePowerSupply" method="post">
+    <input type="hidden" asp-for="PowerSupply.Id" />
+    <div class="mb-3">
+        <label for="InputModelName" class="form-label">Model Name</label>
+        <input type="text" class="form-control" id="InputModelName" asp-for="PowerSupply.ModelName">
+    </div>
+    <div class="mb-3">
+        <label for="InputVendor" class="form-label">Vendor</label>
+        <select asp-for="SelectedVendor" asp-items="Model.VendorsToSelectList" id="InputVendor"></select>
+    </div>
+    <div class="mb-3 form-check">
+        <label for="InputPrice" class="form-label">Price</label>
+        <input type="number" class="form-control" id="InputPrice" asp-for="PowerSupply.Price">
+    </div>
+    <div class="mb-3 form-check">
+        <label for="InputOutputPower" class="form-label">Output Power</label>
+        <input type="number" class="form-control" id="InputOutputPower" asp-for="PowerSupply.OutputPower">
+    </div>
+    <input type="hidden" class="form-control" id="InputPowerConsumption" asp-for="PowerSupply.PowerConsumption" value="0">
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
